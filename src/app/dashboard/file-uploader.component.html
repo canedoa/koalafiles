@@ -1,0 +1,28 @@
+<mat-card
+      class="upload-card"
+      [class.dragging]="dragging"
+      (drop)="onDrop($event)"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+    >
+      <h3></h3>
+
+      <div class="drop-zone">
+        <div><img class="koala" src="assets/koala.png" alt="" /></div>
+        <p>Arrastra y suelta archivos aquí</p>
+        <button mat-stroked-button color="primary" (click)="fileInput.click()">
+          <mat-icon>upload</mat-icon> Seleccionar archivo
+        </button>
+        <input
+          type="file"
+          hidden
+          #fileInput
+          (change)="onFileSelected($event)"
+        />
+      </div>
+
+      <div *ngIf="selectedFile" class="file-info">
+        <mat-icon>description</mat-icon> {{ selectedFile.name }}
+      </div>
+    </mat-card>
+

@@ -1,0 +1,43 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <div  class="logo-login">
+      <img src="assets/logo.png" class="koala-img" alt="Koala" />
+    </div>
+
+    <h2>Iniciar sesión en KoalaFiles</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="email" type="email" required />
+        <mat-error *ngIf="loginForm.get('email')?.invalid"
+          >Campo requerido</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password" required />
+        <mat-error *ngIf="loginForm.get('password')?.invalid"
+          >Campo requerido</mat-error
+        >
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="login-btn"
+        [disabled]="loginForm.invalid"
+      >
+        <mat-icon>login</mat-icon> Entrar
+      </button>
+
+      <div class="links">
+        <a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+        <span> | </span>
+        <a routerLink="/register">Registrarse</a>
+      </div>
+    </form>
+  </mat-card>
+</div>

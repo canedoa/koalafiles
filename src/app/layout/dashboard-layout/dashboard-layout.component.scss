@@ -1,0 +1,17 @@
+.layout-container {
+  display: flex;
+  height: calc(100vh - 64px); // resta la altura de la topbar
+}
+
+app-sidebar {
+  width: 280px;
+  background-color: #263238; // gris oscuro azulado
+  color: white;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: #f3f5f7;
+}

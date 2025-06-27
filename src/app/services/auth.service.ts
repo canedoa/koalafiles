@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; //permite realizar peticiones HTTP (GET, POST, etc.)
+import { Observable } from 'rxjs'; //representa una respuesta asincrónica, en angular las peticiones devuelven "Observable"
+
+interface LoginResponse {
+  token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}
+
+@Injectable({
+  providedIn: 'root', //providedIn: 'root' indica que este servicio estará disponible globalmente en toda la aplicación
+})
+export class AuthService {
+  //Declara la clase AuthService. Aquí se centralizarán todas las operaciones de autenticación.
+  private apiUrl = 'http://localhost:3000/auth';
+
+  constructor(private http: HttpClient) {
+    // angular guarda directamente como propiedad http
+    //Inyecta el servicio HttpClient en el constructor
+    //El constructor es parte de Typescript y su funcion es ejecutar automaticamente
+    // cuando se crea una instancia de una clase
+  }
+  login(credentials: {
+    email: string;
+    password: string;
+  }): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials);
+  }
+  // Método adicional para guardar el token
+  saveToken(token: string): void {
+    localStorage.setItem('auth_token', token); //Guarda datos en la computadora del usuario, y permanecen hasta que se borren manualmente
+  }
+  getToken(): string | null {
+    //Si no existe (por ejemplo, si ya cerró sesión), devuelve null
+    return localStorage.getItem('auth_token'); //Recupera el token guardado anteriormente
+  }
+
+  logout(): void {
+    localStorage.removeItem('auth_token'); //Elimina el token guardado,es decir, cierra la sesión del usuario
+  }
+}

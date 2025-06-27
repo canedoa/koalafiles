@@ -1,0 +1,17 @@
+<mat-sidenav-container class="layout-container">
+  <!-- Sidebar -->
+  <mat-sidenav mode="side" opened class="sidebar">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <app-topbar></app-topbar>
+
+    <main class="main-content">
+      <!-- Aquí colocas tus componentes -->
+      <app-file-uploader></app-file-uploader>
+      <app-file-list></app-file-list>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

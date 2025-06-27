@@ -1,0 +1,48 @@
+.upload-card {
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upload-card {
+        padding: 1.5rem;
+        border-radius: 12px;
+        background-color: #70e1d1;
+        text-align: center;
+        transition: border 0.3s ease, background-color 0.3s ease;
+      }
+
+      .drop-zone {
+        border: 2px dashed #23b8ba;
+        border-radius: 10px;
+        padding: 2rem;
+        margin-top: 1rem;
+        background-color: #dafff8;
+        cursor: pointer;
+      }
+
+      .upload-card.dragging .drop-zone {
+        background-color: rgb(234, 253, 227);
+        border-color: #757d2b;
+      }
+
+      mat-icon {
+        font-size: 40px;
+        margin-bottom: 0.5rem;
+        color: #007081;
+      }
+
+      .file-info {
+        margin-top: 1rem;
+        font-weight: 500;
+      }
+      .koala {
+        width: 200px;
+        height: 180px;
+      }
+
+      .logo {
+        width: 400px;
+        height: 100px;
+      }

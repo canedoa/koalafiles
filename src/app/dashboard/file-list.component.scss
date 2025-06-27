@@ -1,0 +1,41 @@
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.icon-item {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.icon-item:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 0.5rem;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 500;
+  word-break: break-word;
+  color: #333;
+}
+
+.folder .icon {
+  color: #FFB300; // amarillo
+}
+
+.file .icon {
+  color: #4CAF50; // verde
+}
+

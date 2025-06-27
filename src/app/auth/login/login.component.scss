@@ -1,0 +1,49 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #e3f2fd, #70e1d1);
+}
+
+.logo-login{
+  text-align: center;
+}
+
+.login-card {
+  width: 360px;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.koala-img {
+  width: 80px;
+  margin-bottom: 1rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.links {
+  margin-top: 1rem;
+  font-size: 14px;
+
+  a {
+    color: #1565c0;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
