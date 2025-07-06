@@ -1,49 +1,133 @@
-.login-container {
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Quicksand", sans-serif;
+}
+
+.background-container {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #ffeefc, #d9f6ff);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(to bottom right, #e3f2fd, #70e1d1);
+  overflow: hidden;
 }
 
-.logo-login{
+.logo {
+  position: absolute;
+  top: 4%;
+  left: 41%;
+  transform: translateX(-50%);
+  width: 230px;
+  animation: float 3s ease-in-out infinite;
+  z-index: 20;
+}
+
+.login-container {
+  position: relative;
+  z-index: 10;
+  top: 10%;
+}
+.login-btn[disabled] {
+  opacity: 0.6;
+  background-color: #ffb6c1;
+  color: white;
+}
+mat-card.login-card {
+  width: 320px;
+  padding: 40px 30px;
+  border-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
+  background: #fff;
 }
 
-.login-card {
-  width: 360px;
-  padding: 2rem;
-  text-align: center;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-.koala-img {
-  width: 80px;
-  margin-bottom: 1rem;
+h2,
+mat-label {
+  margin-bottom: 25px;
+  color: #6e6e6e;
 }
 
 .full-width {
   width: 100%;
-  margin-bottom: 1rem;
 }
 
 .login-btn {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 10px;
+  background-color: #ffb6c1;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.login-btn:hover {
+  background-color: #ff80a6;
 }
 
 .links {
-  margin-top: 1rem;
-  font-size: 14px;
+  margin-top: 15px;
+  font-size: 13px;
+}
+/* Para los enlaces del login solamente */
+.links a {
+  color: #69d2ff; /* rosa pastel */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
 
-  a {
-    color: #1565c0;
-    text-decoration: none;
-    font-weight: 500;
+.links a:hover {
+  color: #ff80a6;
+  text-decoration: underline;
+}
 
-    &:hover {
-      text-decoration: underline;
-    }
+.cloud {
+  position: absolute;
+  opacity: 0.7;
+  animation: float 6s ease-in-out infinite;
+}
+
+.cloud-1 {
+  top: 10%;
+  left: 5%;
+  width: 155px;
+}
+.cloud-2 {
+  bottom: 25%;
+  right: 1%;
+  width: 173px;
+}
+.cloud-3 {
+  top: 10%;
+  right: 14%;
+  width: 155px;
+}
+.cloud-4 {
+  top: 40%;
+  left: 18%;
+  width: 173px;
+}
+.cloud-5 {
+  bottom: 2%;
+  left: 0%;
+  width: 173px;
+}
+.cloud-6 {
+  top: 63%;
+  right: 18%;
+  width: 173px;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

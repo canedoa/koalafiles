@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   //Esto es un componente, así es su estructura, así luce, y esto necesita para funcionar
@@ -91,8 +92,16 @@ export class RegisterComponent {
         .post('http://localhost:3000/auth/register', userData)
         .subscribe({
           next: (res) => {
-            alert('Registro exitoso!');
-            this.router.navigate(['/login']);
+            Swal.fire({
+              title: '¡Bienvenido!',
+              text: 'Registro exitoso.',
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Ir al Loguin',
+              background: '#fff url(/images/trees.png)',
+            }).then(() => {
+              this.router.navigate(['/login']);
+            });
           },
           error: (err) => {
             console.error(err);

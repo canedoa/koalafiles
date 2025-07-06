@@ -1,43 +1,52 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <div  class="logo-login">
-      <img src="assets/logo.png" class="koala-img" alt="Koala" />
-    </div>
+<div class="background-container">
+  <img src="assets/nube.png" class="cloud cloud-1" />
+  <img src="assets/nube.png" class="cloud cloud-2" />
+  <img src="assets/nube.png" class="cloud cloud-3" />
+  <img src="assets/nube.png" class="cloud cloud-4" />
+  <img src="assets/nube.png" class="cloud cloud-5" />
+  <img src="assets/nube.png" class="cloud cloud-6" />
+  <img src="assets/logo.png" class="logo" />
 
-    <h2>Iniciar sesión en KoalaFiles</h2>
+  <div class="login-container">
+    <mat-card class="login-card">
+      <h2>Bienvenido a <br />KoalaFiles</h2>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Correo electrónico</mat-label>
-        <input matInput formControlName="email" type="email" required />
-        <mat-error *ngIf="loginForm.get('email')?.invalid"
-          >Campo requerido</mat-error
+      <form [formGroup]="loginForm">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput formControlName="email" type="email" required />
+          <mat-error *ngIf="loginForm.get('email')?.invalid"
+            >Campo requerido</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="password" type="password" required />
+          <mat-error *ngIf="loginForm.get('password')?.invalid"
+            >Campo requerido</mat-error
+          >
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          class="login-btn"
+          [disabled]="loginForm.invalid"
+          (click)="onLogin()"
         >
-      </mat-form-field>
+          <mat-icon>login</mat-icon> Entrar
+        </button>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Contraseña</mat-label>
-        <input matInput formControlName="password" type="password" required />
-        <mat-error *ngIf="loginForm.get('password')?.invalid"
-          >Campo requerido</mat-error
-        >
-      </mat-form-field>
-
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        class="login-btn"
-        [disabled]="loginForm.invalid"
-      >
-        <mat-icon>login</mat-icon> Entrar
-      </button>
-
-      <div class="links">
-        <a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
-        <span> | </span>
-        <a routerLink="/register">Registrarse</a>
-      </div>
-    </form>
-  </mat-card>
+        <div class="links">
+          <a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+          <span> | </span>
+          <a routerLink="/register" routerLinkActive="active-link"
+            >Registrarse</a
+          >
+        </div>
+      </form>
+    </mat-card>
+  </div>
 </div>

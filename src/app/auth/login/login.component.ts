@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -45,21 +46,39 @@ export class LoginComponent {
   }
 
   onLogin(): void {
-    if (this.loginForm.valid) {
-      console.log('Datos enviados:', this.loginForm.value);
-      // Aquí va la lógica para llamar al backend
-      const credentials = this.loginForm.value;
-      this.authService.login(credentials).subscribe({
-        next: (response) => {
-          console.log('Login exitoso:', response);
-          this.authService.saveToken(response.token);
-          this.router.navigate(['/dashboard']);
-        },
-        error: (err) => {
-          console.error('Error al iniciar sesión:', err);
-          alert('Correo o contraseña incorrectos');
-        },
-      });
+    console.log('Entrando al login...');
+    if (!this.loginForm.valid) {
+      console.log('Formulario inválido');
+      return;
     }
+
+    const credentials = this.loginForm.value;
+
+    this.authService.login(credentials).subscribe({
+      next: (response) => {
+        console.log('Login exitoso:', response);
+        this.authService.saveToken(response.token);
+
+        Swal.fire({
+          title: '¡Bienvenido!',
+          text: 'Inicio de sesión exitoso.',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ir al Dashboard',
+          background: '#fff url(/images/trees.png)',
+        }).then(() => {
+          this.router.navigate(['/dashboard']);
+        });
+      },
+      error: (err) => {
+        console.error('Error al iniciar sesión:', err);
+        Swal.fire({
+          title: 'Oops...',
+          text: 'Correo o contraseña incorrectos',
+          icon: 'error',
+          confirmButtonColor: '#d33',
+        });
+      },
+    });
   }
 }
