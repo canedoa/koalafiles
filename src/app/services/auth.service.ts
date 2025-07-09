@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; //permite realizar peticiones HTTP (GET, POST, etc.)
 import { Observable } from 'rxjs'; //representa una respuesta asincrónica, en angular las peticiones devuelven "Observable"
-
+import { enviroment } from '../../enviroments/enviroment';
 interface LoginResponse {
   token: string;
   user: {
@@ -16,7 +16,7 @@ interface LoginResponse {
 })
 export class AuthService {
   //Declara la clase AuthService. Aquí se centralizarán todas las operaciones de autenticación.
-  private apiUrl = 'http://localhost:3000/auth';
+  private apiUrl = `${enviroment.apiBackendUrl}/auth`;
 
   constructor(private http: HttpClient) {
     // angular guarda directamente como propiedad http

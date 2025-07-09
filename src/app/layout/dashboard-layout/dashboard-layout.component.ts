@@ -1,39 +1,27 @@
 import { Component } from '@angular/core';
-
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDividerModule } from '@angular/material/divider';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
-import { TopbarComponent } from '../../components/topbar/topbar.component';
-import { FileListComponent } from '../../dashboard/file-list.component';
-import { FileUploaderComponent } from '../../dashboard/file-uploader.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 
 
 @Component({
   selector: 'app-dashboard-layout',
   standalone: true,
-  imports: [
-    SidebarComponent,
-    TopbarComponent,
-    FileUploaderComponent,
-    FileListComponent,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDividerModule,
-  ],
+  imports: [CommonModule, MatToolbarModule, MatIconButton, MatIconModule, MatSidenavModule, SidebarComponent],
   templateUrl: './dashboard-layout.component.html',
   styleUrls: ['./dashboard-layout.component.scss'],
 })
 export class DashboardLayoutComponent {
-  folders = ['Mi unidad', 'Documentos', 'Imágenes', 'Videos'];
+  user = { name: 'Celeste' };
+
+  constructor(private authService: AuthService, private router: Router) {}
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['./login']);
+  }
 }

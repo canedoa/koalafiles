@@ -1,17 +1,27 @@
-.layout-container {
+@use "@angular/material" as mat;
+mat-toolbar {
+  @include mat.elevation(3);
+  position: relative;
+  z-index: 5;
+}
+
+mat-sidenav {
+  width: 250px;
+  background: linear-gradient(to bottom right, #ffeefc, #cbe9f3);
+}
+.content {
+  padding: 24px;
+}
+
+mat-sidenav-container {
+  height: 100vh;
+}
+.user-info {
   display: flex;
-  height: calc(100vh - 64px); // resta la altura de la topbar
-}
-
-app-sidebar {
-  width: 280px;
-  background-color: #263238; // gris oscuro azulado
-  color: white;
-}
-
-.main-content {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  background-color: #f3f5f7;
+  position: absolute;
+  right: 0;
+  align-items: center;
+  gap: 12px;
+  font-weight: bold;
+  color: #6e6e6e;
 }

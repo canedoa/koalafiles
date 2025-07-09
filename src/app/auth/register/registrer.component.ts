@@ -13,6 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { enviroment } from '../../../enviroments/enviroment';
 
 @Component({
   //Esto es un componente, así es su estructura, así luce, y esto necesita para funcionar
@@ -89,7 +90,7 @@ export class RegisterComponent {
       const { confirmPassword, ...userData } = this.registerForm.value;
 
       this.http
-        .post('http://localhost:3000/auth/register', userData)
+        .post(`${enviroment.apiBackendUrl}/auth/register`, userData)
         .subscribe({
           next: (res) => {
             Swal.fire({

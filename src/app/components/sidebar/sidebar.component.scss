@@ -1,5 +1,5 @@
 mat-list-item {
-  color: white;
+  color: #ffb6c1;
   font-weight: 500;
   padding: 10px 16px;
   transition: background-color 0.2s;
@@ -11,4 +11,69 @@ mat-list-item:hover {
 
 mat-icon {
   margin-right: 8px;
+}
+
+.logo {
+  margin: 10px;
+  width: 141px;
+  height: 101px;
+  align-items: center;
+}
+h2 {
+  text-align: center;
+}
+
+.container-logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem; // opcional
+}
+.CrearCarpeta{
+
+  background-color: #ffb6c1 !important;
+  color:white !important;
+  
+}
+
+.subirArchivo{
+  color:white !important;
+  background-color: #97d9f5 !important;
+}
+.dashboard-content .controls {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+    justify-content: center;
+}
+
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.file-card {
+  padding: 16px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #fff0f5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.file-card:hover {
+  transform: scale(1.05);
+}
+
+.file-icon {
+  font-size: 40px;
+  color: #ff69b4;
+}
+
+.file-name {
+  margin-top: 8px;
+  font-weight: 600;
+  color: #444;
 }

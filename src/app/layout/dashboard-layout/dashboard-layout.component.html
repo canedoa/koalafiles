@@ -1,17 +1,20 @@
-<mat-sidenav-container class="layout-container">
-  <!-- Sidebar -->
-  <mat-sidenav mode="side" opened class="sidebar">
+<mat-toolbar class="mat-elevation-z3" style="background: #ffb6c1">
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="user-info">
+    <span>Hola, {{ user?.name }}</span>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav opened mode="side">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
-
-  <!-- Contenido principal -->
   <mat-sidenav-content>
-    <app-topbar></app-topbar>
-
-    <main class="main-content">
-      <!-- Aquí colocas tus componentes -->
-      <app-file-uploader></app-file-uploader>
-      <app-file-list></app-file-list>
-    </main>
+    <h1>Bienvenida, Celeste 🌸</h1>
+    <p>Este es tu dashboard.</p>
   </mat-sidenav-content>
 </mat-sidenav-container>
