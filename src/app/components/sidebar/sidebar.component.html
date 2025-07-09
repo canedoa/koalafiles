@@ -1,41 +1,23 @@
 <div class="container-logo">
-  <img src="assets/logo.png" class="logo" alt="logokoala" />
+  <img src="assets/logo.png" class="logo" [ngStyle]="profilePicSize()" />
 </div>
-<div>
+<div [class.hide-header-text]="sideNavCollapsed()">
   <h2>KoalaFiles</h2>
 </div>
 <section class="dashboard-content">
-    <div class="controls">
-      <button mat-raised-button class="CrearCarpeta" >
-        
-        <mat-icon>create_new_folder</mat-icon> Nueva Carpeta
-      </button>
-      <button mat-raised-button class="subirArchivo">
-        <mat-icon>upload</mat-icon> Subir Archivo
-      </button>
-     
-    </div>
+  <div class="controls">
+    <button mat-raised-button class="CrearCarpeta">
+      <mat-icon>create_new_folder</mat-icon> Nueva Carpeta
+    </button>
+    <button mat-raised-button class="subirArchivo">
+      <mat-icon>upload</mat-icon> Subir Archivo
+    </button>
+  </div>
+</section>
 
-    <div class="file-grid">
-      <mat-card class="file-card" *ngFor="let item of archivos">
-        <mat-icon class="file-icon">
-          {{ item.tipo === 'carpeta' ? 'folder' : 'insert_drive_file' }}
-        </mat-icon>
-        <p class="file-name">{{ item.nombre }}</p>
-      </mat-card>
-    </div>
-  </section>
 <mat-nav-list>
-  <mat-list-item>
-    <mat-icon matListItemIcon>folder</mat-icon>
-    <span>Mis archivos</span>
-  </mat-list-item>
-  <mat-list-item>
-    <mat-icon matListItemIcon>people</mat-icon>
-    <span>Compartidos</span>
-  </mat-list-item>
-  <mat-list-item>
-    <mat-icon matListItemIcon>delete</mat-icon>
-    <span>Papelera</span>
-  </mat-list-item>
+  <a mat-list-item *ngFor="let item of menuItems()">
+    <mat-icon class="list-icon" matListItemIcon>{{ item.icon }}</mat-icon>
+    <span>{{ item.label }}</span>
+  </a>
 </mat-nav-list>

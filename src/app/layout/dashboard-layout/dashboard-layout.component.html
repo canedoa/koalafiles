@@ -1,19 +1,19 @@
 <mat-toolbar class="mat-elevation-z3" style="background: #ffb6c1">
-  <button mat-icon-button>
+  <button mat-icon-button (click)="collapsed.set(!collapsed())">
     <mat-icon>menu</mat-icon>
   </button>
   <div class="user-info">
-    <span>Hola, {{ user?.name }}</span>
-    <button mat-icon-button (click)="logout()">
+    <span>Hola, {{ user.name }}</span>
+    <button mat-icon-button>
       <mat-icon>logout</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav opened mode="side">
-    <app-sidebar></app-sidebar>
+  <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
+    <app-sidebar [collapsed]="collapsed()"></app-sidebar>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content [style.margin-left]="sidenavWidth()">
     <h1>Bienvenida, Celeste 🌸</h1>
     <p>Este es tu dashboard.</p>
   </mat-sidenav-content>
