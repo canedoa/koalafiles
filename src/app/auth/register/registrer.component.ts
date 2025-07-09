@@ -13,7 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { enviroment } from '../../../enviroments/enviroment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   //Esto es un componente, así es su estructura, así luce, y esto necesita para funcionar
@@ -38,7 +38,7 @@ import { enviroment } from '../../../enviroments/enviroment';
 })
 export class RegisterComponent {
   //declaramos una propiedad llamada registerForm que representara un formulario completo
-  registerForm: FormGroup;
+  registerForm!: FormGroup;
   //Angular inyecta automáticamente FormBuilder como dependencia para usarlo
   constructor(
     private fb: FormBuilder,
@@ -90,7 +90,7 @@ export class RegisterComponent {
       const { confirmPassword, ...userData } = this.registerForm.value;
 
       this.http
-        .post(`${enviroment.apiBackendUrl}/auth/register`, userData)
+        .post(`${environment.apiBackendUrl}/auth/register`, userData)
         .subscribe({
           next: (res) => {
             Swal.fire({
@@ -106,7 +106,7 @@ export class RegisterComponent {
           },
           error: (err) => {
             console.error(err);
-            alert('Hubo un error en el registro');
+            alert('El registro ya existe, compruebe los datos');
           },
         });
     }
