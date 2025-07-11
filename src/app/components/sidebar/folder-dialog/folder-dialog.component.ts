@@ -1,4 +1,4 @@
-// src/app/components/sidebar/folder-dialog/folder-dialog.component.ts
+
 
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -47,8 +47,10 @@ export class FolderDialogComponent {
   constructor(private dialogRef: MatDialogRef<FolderDialogComponent>) {}
 
   onCreate(): void {
-    if (this.nameCtrl.valid && this.dialogRef) {
-      this.dialogRef.close(this.nameCtrl.value.trim());
+    const value = this.nameCtrl.value;
+    if (value && this.dialogRef) {
+      // value es string (no null), dialogRef no es null
+      this.dialogRef.close(value.trim());
     }
   }
 

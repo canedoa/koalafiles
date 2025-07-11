@@ -1,41 +1,29 @@
-.icon-grid {
+.file-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
   gap: 1rem;
-  padding: 2rem;
-}
-
-.icon-item {
-  text-align: center;
   padding: 1rem;
-  border-radius: 12px;
-  transition: transform 0.2s ease;
+}
+.file-card {
+  text-align: center;
+  padding: .5rem;
+  background: #cff1fa;
+  transition: transform .3s ease, box-shadow .3s ease;
   cursor: pointer;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-.icon-item:hover {
-  transform: translateY(-5px);
+.file-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
-
-.icon {
-  font-size: 48px;
-  margin-bottom: 0.5rem;
+.file-icon {
+  font-size: 40px;
+  margin-bottom: .5rem;
+  color: #ffb6c1;
 }
-
-.name {
-  font-size: 13px;
-  font-weight: 500;
-  word-break: break-word;
+.file-name {
+  font-size: .9rem;
   color: #333;
+  word-break: break-word;
 }
 
-.folder .icon {
-  color: #FFB300; // amarillo
-}
-
-.file .icon {
-  color: #4CAF50; // verde
-}
 

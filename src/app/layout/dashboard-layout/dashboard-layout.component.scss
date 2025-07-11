@@ -29,3 +29,41 @@ mat-sidenav-container {
   font-weight: bold;
   color: #6e6e6e;
 }
+/* dashboard-layout.component.scss */
+
+/* Card que rodea al breadcrumb */
+.breadcrumb-card {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #fff8f9;     /* tono pastel rosa claro */
+  border-radius: 8px;
+}
+
+/* Contenedor nav */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.95rem;
+  color: #6e6e6e;
+}
+
+/* Cada segmento de ruta */
+.breadcrumb .segment {
+  margin: 0 0.25rem;
+  font-weight: 500;
+  color: #d6336c;               /* rosa oscuro para destacar */
+}
+
+/* Iconos */
+.breadcrumb mat-icon {
+  font-size: 20px;
+  color: #ff80a6;               /* rosa medio */
+}
+
+/* Chevron entre segmentos */
+.breadcrumb .chevron {
+  font-size: 16px;
+  margin: 0 0.1rem;
+  color: #d9d9d9;
+}

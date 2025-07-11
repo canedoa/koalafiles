@@ -1,75 +1,75 @@
-// src/app/dashboard/file-list.component.ts
 
-import { Component, OnInit } from '@angular/core';
+
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { FilesService } from '../services/files.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
+export interface FileItem {
+  nombre: string;
+  tipo: 'archivo' | 'carpeta';
+}
 @Component({
   selector: 'app-file-list',
   standalone: true,
   imports: [CommonModule, MatIconModule, MatCardModule],
-  template: `
-    <div class="file-grid">
-      <mat-card class="file-card" *ngFor="let name of files">
-        <mat-icon>
-          {{ name.includes('.') ? 'insert_drive_file' : 'folder' }}
-        </mat-icon>
-        <p>{{ name }}</p>
-      </mat-card>
-    </div>
-  `,
-  styles: [
-    `
-      .file-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 1rem;
-        padding: 1rem;
-      }
-      .file-card {
-        text-align: center;
-        padding: 0.5rem;
-        background-color:rgb(207, 237, 250);
-        transition: transform 0.3s ease;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-      .file-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-      }
-      mat-icon {
-        font-size: 40px;
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #ffb6c1;
-      }
-    `,
-  ],
+  templateUrl: './file-list.component.html',
+  styleUrls: ['./file-list.component.scss'],
 })
-export class FileListComponent implements OnInit {
-  files: string[] = [];
+export class FileListComponent implements OnChanges {
+  /** La ruta actual (lista de carpetas desde la raíz) */
+  @Input() path: string[] = [];
+
+  /** Emite el nombre de la carpeta seleccionada */
+  @Output() folderClick = new EventEmitter<string>();
+
+  files: FileItem[] = [];
 
   constructor(private filesSvc: FilesService) {}
 
-  ngOnInit() {
-    // delegamos la carga al nuevo método
-    this.loadFiles();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['path']) {
+      // cada vez que path cambie, limpio y recargo
+      this.files = [];
+      this.filesSvc.getFiles(this.path).subscribe({
+        next: (list) => (this.files = list),
+        error: (err) => console.error('Error al listar archivos', err),
+      });
+    }
   }
 
-  /**
-   * Método público que recarga la lista de archivos.
-   * Lo puede llamar el componente padre (DashboardLayout).
-   */
-  loadFiles(): void {
-    console.log('Cargando lista de archivos…');
-    this.filesSvc.getFiles().subscribe({
-      next: (list) => {
-        console.log('Lista recibida:', list);
-        this.files = list;
-      },
-      error: (err) => console.error('Error al listar archivos', err),
-    });
+  /** Recarga la lista desde el backend, pasandole la ruta */
+  // src/app/dashboard/file-list.component.ts
+
+loadFiles(path: string[] = []) {
+  // Limpia la lista inmediatamente
+  this.files = [];
+
+  // Pide al backend los archivos de la ruta dada
+  this.filesSvc.getFiles(path).subscribe({
+    next: (list) => {
+      // Una vez que venga la respuesta, reemplaza por completo
+      this.files = list;
+    },
+    error: (err) => console.error('Error al listar archivos', err),
+  });
+}
+
+  /** Si es carpeta, emitimos para que el padre navegue dentro */
+  onItemClick(item: FileItem) {
+    if (item.tipo === 'carpeta') {
+      this.folderClick.emit(item.nombre);
+    } else {
+      // aquí podrías descargar o previsualizar el archivo
+      console.log('Archivo clicado:', item.nombre);
+    }
   }
 }

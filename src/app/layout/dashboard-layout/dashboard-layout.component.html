@@ -18,11 +18,31 @@
     ></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content [style.margin-left]="sidenavWidth()">
+    <mat-card class="breadcrumb-card mat-elevation-z1">
+      <nav class="breadcrumb">
+        <h2>Ruta de Navegación:</h2>
+        <button
+          mat-icon-button
+          [disabled]="!currentPath().length"
+          (click)="up()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="segment">Inicio</span>
+        <ng-container *ngFor="let seg of currentPath()">
+          <mat-icon class="chevron">chevron_right</mat-icon>
+          <span class="segment">{{ seg }}</span>
+        </ng-container>
+      </nav>
+    </mat-card>
     <div class="welcome">
       <h1>Bienvenido, {{ userName() }} 🌸</h1>
       <p>Este es tu dashboard.</p>
     </div>
     <input #fileInput type="file" hidden (change)="onFileSelected($event)" />
-    <app-file-list></app-file-list>
+    <app-file-list
+      [path]="currentPath()"
+      (folderClick)="onFolderClick($event)"
+    ></app-file-list>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -18,6 +18,7 @@ import { FileListComponent } from '../../dashboard/file-list.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { FilesService } from '../../services/files.service';
 import Swal from 'sweetalert2';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -31,6 +32,7 @@ import Swal from 'sweetalert2';
     SidebarComponent,
     FileListComponent,
     MatDialogModule,
+    MatCardModule,
   ],
   templateUrl: './dashboard-layout.component.html',
   styleUrls: ['./dashboard-layout.component.scss'],
@@ -41,6 +43,7 @@ export class DashboardLayoutComponent implements OnInit {
 
   userName = signal<string>('Cargando…');
   collapsed = signal(false);
+  currentPath = signal<string[]>([]);
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
 
   constructor(
@@ -62,6 +65,18 @@ export class DashboardLayoutComponent implements OnInit {
       },
     });
   }
+  
+  onFolderClick(name: string) {
+    const p = this.currentPath();
+    if (p[p.length - 1] === name) return;
+    this.currentPath.set([...p, name]);
+  }
+
+  up() {
+    const p = [...this.currentPath()];
+    p.pop();
+    this.currentPath.set(p);
+  }
 
   // Nueva carpeta
   onNewFolder(): void {
@@ -82,10 +97,11 @@ export class DashboardLayoutComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         const name = result.value!.trim();
-        this.filesSvc.mkdir(name).subscribe({
+        this.filesSvc.mkdir(name, this.currentPath()).subscribe({
           next: () => {
-            Swal.fire('Carpeta creada', `"${name}" ha sido creada.`, 'success');
-            this.fileList.loadFiles();
+            Swal.fire('¡Listo!', `"${name}" creada.`, 'success');
+            this.fileList.loadFiles(this.currentPath()); // <-- recarga la ruta actual
+            this.currentPath.update((path) => [...path]);
           },
           error: (err) => {
             console.error('Error al crear carpeta', err);
@@ -106,9 +122,9 @@ export class DashboardLayoutComponent implements OnInit {
     const inp = ev.target as HTMLInputElement;
     if (!inp.files?.length) return;
     const file = inp.files[0];
-    this.filesSvc.upload(file).subscribe({
+    this.filesSvc.upload(file, this.currentPath()).subscribe({
       next: () => {
-        this.fileList.loadFiles();
+        this.fileList.loadFiles(this.currentPath()); // <-- recarga la ruta actual
         inp.value = '';
       },
       error: (e) => console.error('Error subiendo archivo', e),
