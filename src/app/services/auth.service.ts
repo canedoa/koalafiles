@@ -22,6 +22,12 @@ export interface RegisterResponse {
   message: string;
   // Si tu API devolviera token + user aquí podrías reusar LoginResponse
 }
+
+export interface MeResponse {
+  userId: number;
+  email:  string;
+  name?:  string;  
+}
 @Injectable({
   providedIn: 'root', //providedIn: 'root' indica que este servicio estará disponible globalmente en toda la aplicación
 })
@@ -62,5 +68,8 @@ export class AuthService {
   }
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+  me(): Observable<MeResponse> {
+    return this.http.get<MeResponse>(`${this.apiUrl}/me`);
   }
 }

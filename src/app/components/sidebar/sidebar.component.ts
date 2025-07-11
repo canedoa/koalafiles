@@ -1,4 +1,10 @@
-import { Component, Input, signal, computed } from '@angular/core';
+import {
+  Component,
+  Input,
+  signal,
+  computed,
+  
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,8 +33,16 @@ export type MenuItem = {
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
+  @Output() newFolder = new EventEmitter<void>();
+  @Output() uploadFile = new EventEmitter<void>();
   @Output() itemSelected = new EventEmitter<void>();
+  onNewFolderClick() {
+    this.newFolder.emit();
+  }
 
+  onUploadClick() {
+    this.uploadFile.emit();
+  }
   onItemClick() {
     this.itemSelected.emit();
   }

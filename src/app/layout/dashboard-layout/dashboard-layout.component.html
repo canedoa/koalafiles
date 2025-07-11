@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <div class="user-info">
-    <span>Hola, {{ user.name }}</span>
+    <span>Hola, {{ userName() }}</span>
     <button mat-icon-button>
       <mat-icon>logout</mat-icon>
     </button>
@@ -11,10 +11,18 @@
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
-    <app-sidebar [collapsed]="collapsed()"></app-sidebar>
+    <app-sidebar
+      (newFolder)="onNewFolder()"
+      (uploadFile)="onFileUploadRequested()"
+      [collapsed]="collapsed()"
+    ></app-sidebar>
   </mat-sidenav>
   <mat-sidenav-content [style.margin-left]="sidenavWidth()">
-    <h1>Bienvenida, Celeste 🌸</h1>
-    <p>Este es tu dashboard.</p>
+    <div class="welcome">
+      <h1>Bienvenido, {{ userName() }} 🌸</h1>
+      <p>Este es tu dashboard.</p>
+    </div>
+    <input #fileInput type="file" hidden (change)="onFileSelected($event)" />
+    <app-file-list></app-file-list>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -6,10 +6,10 @@
 </div>
 <section class="dashboard-content">
   <div class="controls">
-    <button mat-raised-button class="CrearCarpeta">
+    <button mat-raised-button class="CrearCarpeta" (click)="onNewFolderClick()">
       <mat-icon>create_new_folder</mat-icon> Nueva Carpeta
     </button>
-    <button mat-raised-button class="subirArchivo">
+    <button mat-raised-button class="subirArchivo" (click)="onUploadClick()">
       <mat-icon>upload</mat-icon> Subir Archivo
     </button>
   </div>

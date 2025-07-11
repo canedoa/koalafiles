@@ -65,7 +65,6 @@ export class LoginComponent {
           icon: 'success',
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'Ir al Dashboard',
-          background: '#fff url(/images/trees.png)',
         }).then(() => {
           this.router.navigate(['/dashboard']);
         });

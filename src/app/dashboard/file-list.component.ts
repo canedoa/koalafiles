@@ -1,40 +1,75 @@
-import { Component } from '@angular/core';
+// src/app/dashboard/file-list.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { FilesService } from '../services/files.service';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-file-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
-  templateUrl: 'file-list.component.html',
-  styleUrls: ['file-list.component.scss'],
+  imports: [CommonModule, MatIconModule, MatCardModule],
+  template: `
+    <div class="file-grid">
+      <mat-card class="file-card" *ngFor="let name of files">
+        <mat-icon>
+          {{ name.includes('.') ? 'insert_drive_file' : 'folder' }}
+        </mat-icon>
+        <p>{{ name }}</p>
+      </mat-card>
+    </div>
+  `,
+  styles: [
+    `
+      .file-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .file-card {
+        text-align: center;
+        padding: 0.5rem;
+        background-color:rgb(207, 237, 250);
+        transition: transform 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .file-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      }
+      mat-icon {
+        font-size: 40px;
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #ffb6c1;
+      }
+    `,
+  ],
 })
-export class FileListComponent {
-  columns = ['name', 'size', 'uploadedAt', 'actions'];
+export class FileListComponent implements OnInit {
+  files: string[] = [];
 
-  files = [
-    {
-      name: 'factura-enero.pdf',
-      size: 1048576,
-      uploadedAt: new Date(),
-    },
-    {
-      name: 'reporte.docx',
-      size: 210432,
-      uploadedAt: new Date(),
-    },
-    {
-      name: 'imagen.png',
-      size: 587312,
-      uploadedAt: new Date(),
-    },
-  ];
+  constructor(private filesSvc: FilesService) {}
 
-  formatSize(sizeInBytes: number): string {
-    const kb = sizeInBytes / 1024;
-    if (kb < 1024) return `${kb.toFixed(1)} KB`;
-    return `${(kb / 1024).toFixed(1)} MB`;
+  ngOnInit() {
+    // delegamos la carga al nuevo método
+    this.loadFiles();
+  }
+
+  /**
+   * Método público que recarga la lista de archivos.
+   * Lo puede llamar el componente padre (DashboardLayout).
+   */
+  loadFiles(): void {
+    console.log('Cargando lista de archivos…');
+    this.filesSvc.getFiles().subscribe({
+      next: (list) => {
+        console.log('Lista recibida:', list);
+        this.files = list;
+      },
+      error: (err) => console.error('Error al listar archivos', err),
+    });
   }
 }

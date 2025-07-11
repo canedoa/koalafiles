@@ -99,7 +99,6 @@ export class RegisterComponent {
               icon: 'success',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'Ir al Loguin',
-              background: '#fff url(/images/trees.png)',
             }).then(() => {
               this.router.navigate(['/login']);
             });
