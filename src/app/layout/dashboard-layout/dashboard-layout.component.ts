@@ -6,6 +6,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService, MeResponse } from '../../services/auth.service';
@@ -19,6 +20,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { FilesService } from '../../services/files.service';
 import Swal from 'sweetalert2';
 import { MatCardModule } from '@angular/material/card';
+import { StorageProgressComponent } from '../../components/storage-progress/storage-progress.component';
+
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -33,6 +36,8 @@ import { MatCardModule } from '@angular/material/card';
     FileListComponent,
     MatDialogModule,
     MatCardModule,
+    StorageProgressComponent
+    
   ],
   templateUrl: './dashboard-layout.component.html',
   styleUrls: ['./dashboard-layout.component.scss'],
@@ -45,6 +50,9 @@ export class DashboardLayoutComponent implements OnInit {
   collapsed = signal(false);
   currentPath = signal<string[]>([]);
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
+  usedPercent = signal(0);
+  totalPercent = 100;
+  progressPercent = signal(0);
 
   constructor(
     private authService: AuthService,
@@ -56,7 +64,6 @@ export class DashboardLayoutComponent implements OnInit {
     // Al iniciar: pedimos /auth/me
     this.authService.me().subscribe({
       next: (me: MeResponse) => {
-        // Si tu backend te envía name, úsalo; de lo contrario, el email
         this.userName.set(me.name ?? me.email);
       },
       error: (err) => {
@@ -64,12 +71,14 @@ export class DashboardLayoutComponent implements OnInit {
         this.router.navigate(['/login']);
       },
     });
+    this.refreshFiles();
   }
-  
+
   onFolderClick(name: string) {
     const p = this.currentPath();
     if (p[p.length - 1] === name) return;
     this.currentPath.set([...p, name]);
+    this.refreshFiles();
   }
 
   up() {
@@ -118,21 +127,35 @@ export class DashboardLayoutComponent implements OnInit {
   }
 
   //Cuando el usuario selecciona archivo
-  onFileSelected(ev: Event) {
-    const inp = ev.target as HTMLInputElement;
-    if (!inp.files?.length) return;
-    const file = inp.files[0];
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) {
+      return;
+    }
+    const file = input.files[0];
     this.filesSvc.upload(file, this.currentPath()).subscribe({
       next: () => {
-        this.fileList.loadFiles(this.currentPath()); // <-- recarga la ruta actual
-        inp.value = '';
+        this.refreshFiles();
+        // volver a resetear el input para poder subir el mismo archivo otra vez
+        input.value = '';
       },
-      error: (e) => console.error('Error subiendo archivo', e),
+      error: (err) => console.error('Error subiendo archivo', err),
     });
   }
 
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  refreshFiles() {
+    this.fileList.loadFiles(this.currentPath());
+    const count = this.fileList.files.length;
+    // cada archivo = 5 %
+    this.usedPercent.set(Math.min(this.totalPercent, count * 5));
+  }
+  // Getter seguro para el número de archivos
+  get fileCount(): number {
+    return this.fileList?.files?.length ?? 0;
   }
 }

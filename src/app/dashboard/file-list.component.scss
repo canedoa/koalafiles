@@ -1,29 +1,27 @@
 .file-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 1rem;
   padding: 1rem;
 }
 .file-card {
   text-align: center;
-  padding: .5rem;
-  background: #cff1fa;
-  transition: transform .3s ease, box-shadow .3s ease;
+  padding: 0.5rem;
+  background: #d9eaf5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 .file-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 .file-icon {
   font-size: 40px;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   color: #ffb6c1;
 }
 .file-name {
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: #333;
   word-break: break-word;
 }
-
-

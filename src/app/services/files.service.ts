@@ -26,10 +26,10 @@ export class FilesService {
 
   /** Crea una subcarpeta */
   mkdir(name: string, path: string[] = []): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}/mkdir`,
-      { name, path }
-    );
+    return this.http.post(`${this.apiUrl}/mkdir`, {
+      name,
+      path: path.join('/'),
+    });
   }
 
   /** Sube un archivo */

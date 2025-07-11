@@ -4,7 +4,7 @@
   </button>
   <div class="user-info">
     <span>Hola, {{ userName() }}</span>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="logout()">
       <mat-icon>logout</mat-icon>
     </button>
   </div>
@@ -35,6 +35,7 @@
         </ng-container>
       </nav>
     </mat-card>
+
     <div class="welcome">
       <h1>Bienvenido, {{ userName() }} 🌸</h1>
       <p>Este es tu dashboard.</p>
@@ -43,6 +44,8 @@
     <app-file-list
       [path]="currentPath()"
       (folderClick)="onFolderClick($event)"
+      #fileList
     ></app-file-list>
+    <app-storage-progress [itemCount]="fileCount"></app-storage-progress>
   </mat-sidenav-content>
 </mat-sidenav-container>
