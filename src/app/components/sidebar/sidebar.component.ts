@@ -3,6 +3,7 @@ import {
   Input,
   signal,
   computed,
+ 
   
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,9 +34,12 @@ export type MenuItem = {
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
+  @Input() profileId!: number;
   @Output() newFolder = new EventEmitter<void>();
   @Output() uploadFile = new EventEmitter<void>();
   @Output() itemSelected = new EventEmitter<void>();
+  @Output() showProfiles = new EventEmitter<void>();
+   @Output() profileClick = new EventEmitter<void>();
   onNewFolderClick() {
     this.newFolder.emit();
   }

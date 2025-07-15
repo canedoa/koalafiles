@@ -1,0 +1,44 @@
+/* Fuerza el fondo y borde de los mat-form-field en modo fill siempre visibles */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #fff !important;
+  border-radius: 4px !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: none !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-outline {
+  color: #e0e0e0 !important;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.mat-form-field {
+  flex: 1 1 180px;
+  min-width: 180px;
+}
+table { width: 100%; margin-bottom: 1rem }
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-left: 1.5rem;
+}
+mat-form-field {
+  flex: 1 1 220px;
+  min-width: 180px;
+  margin-right: 0;
+  margin-left: 3px;
+}
+mat-form-field:last-child {
+  margin-right: 0;
+}
+button[mat-raised-button] {
+  margin-top: 1rem;
+  margin-left: 20px;
+  color: white !important;
+  background-color: #97d9f5 !important;
+}

@@ -12,7 +12,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService, MeResponse } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { FileListComponent } from '../../dashboard/file-list.component';
@@ -21,7 +20,8 @@ import { FilesService } from '../../services/files.service';
 import Swal from 'sweetalert2';
 import { MatCardModule } from '@angular/material/card';
 import { StorageProgressComponent } from '../../components/storage-progress/storage-progress.component';
-
+import { ProfileListComponent } from '../../dashboard/profile-list/profile-list.component';
+import { MatButtonModule } from '@angular/material/button'; 
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -29,20 +29,21 @@ import { StorageProgressComponent } from '../../components/storage-progress/stor
   imports: [
     CommonModule,
     MatToolbarModule,
-    MatIconButton,
+    MatButtonModule,
     MatIconModule,
     MatSidenavModule,
     SidebarComponent,
     FileListComponent,
+    ProfileListComponent,
     MatDialogModule,
     MatCardModule,
-    StorageProgressComponent
-    
+    StorageProgressComponent,
   ],
   templateUrl: './dashboard-layout.component.html',
   styleUrls: ['./dashboard-layout.component.scss'],
 })
 export class DashboardLayoutComponent implements OnInit {
+  profileId = signal<number>(0);  // ← nueva señal
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild(FileListComponent) fileList!: FileListComponent;
 
@@ -53,7 +54,7 @@ export class DashboardLayoutComponent implements OnInit {
   usedPercent = signal(0);
   totalPercent = 100;
   progressPercent = signal(0);
-
+  showProfiles = signal(false);
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -65,6 +66,7 @@ export class DashboardLayoutComponent implements OnInit {
     this.authService.me().subscribe({
       next: (me: MeResponse) => {
         this.userName.set(me.name ?? me.email);
+        this.profileId.set(me.idPerfil);
       },
       error: (err) => {
         console.error('Error cargando perfil:', err);
@@ -149,13 +151,24 @@ export class DashboardLayoutComponent implements OnInit {
   }
 
   refreshFiles() {
-    this.fileList.loadFiles(this.currentPath());
-    const count = this.fileList.files.length;
-    // cada archivo = 5 %
-    this.usedPercent.set(Math.min(this.totalPercent, count * 5));
+    if (this.fileList) {
+      this.fileList.loadFiles(this.currentPath());
+      const count = this.fileList.files.length;
+      // cada archivo = 5 %
+      this.usedPercent.set(Math.min(this.totalPercent, count * 5));
+    }
   }
   // Getter seguro para el número de archivos
   get fileCount(): number {
     return this.fileList?.files?.length ?? 0;
+  }
+
+
+  onShowProfiles() {
+    this.showProfiles.set(true);
+  }
+
+  onBackToFiles() {
+    this.showProfiles.set(false);
   }
 }

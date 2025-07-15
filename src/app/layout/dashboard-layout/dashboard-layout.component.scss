@@ -4,11 +4,13 @@ mat-toolbar {
   position: relative;
   z-index: 5;
 }
-.welcome{
-
+.welcome {
   margin: 20px;
 }
-
+.volver:hover {
+  background-color: #97d9f5;
+  color: white;
+}
 mat-sidenav {
   width: 250px;
   background: linear-gradient(to bottom right, #ffeefc, #cbe9f3);
@@ -35,7 +37,7 @@ mat-sidenav-container {
 .breadcrumb-card {
   margin: 1rem;
   padding: 0.5rem 1rem;
-  background-color: #fff8f9;     /* tono pastel rosa claro */
+  background-color: #fff8f9; /* tono pastel rosa claro */
   border-radius: 8px;
 }
 
@@ -43,7 +45,7 @@ mat-sidenav-container {
 .breadcrumb {
   display: flex;
   align-items: center;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 0.95rem;
   color: #6e6e6e;
 }
@@ -52,13 +54,13 @@ mat-sidenav-container {
 .breadcrumb .segment {
   margin: 0 0.25rem;
   font-weight: 500;
-  color: #d6336c;               /* rosa oscuro para destacar */
+  color: #d6336c; /* rosa oscuro para destacar */
 }
 
 /* Iconos */
 .breadcrumb mat-icon {
   font-size: 20px;
-  color: #ff80a6;               /* rosa medio */
+  color: #ff80a6; /* rosa medio */
 }
 
 /* Chevron entre segmentos */

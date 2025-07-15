@@ -9,11 +9,14 @@
     </button>
   </div>
 </mat-toolbar>
+
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
     <app-sidebar
+      [profileId]="profileId()"
       (newFolder)="onNewFolder()"
       (uploadFile)="onFileUploadRequested()"
+      (showProfiles)="onShowProfiles()"
       [collapsed]="collapsed()"
     ></app-sidebar>
   </mat-sidenav>
@@ -41,11 +44,25 @@
       <p>Este es tu dashboard.</p>
     </div>
     <input #fileInput type="file" hidden (change)="onFileSelected($event)" />
-    <app-file-list
-      [path]="currentPath()"
-      (folderClick)="onFolderClick($event)"
-      #fileList
-    ></app-file-list>
-    <app-storage-progress [itemCount]="fileCount"></app-storage-progress>
+
+    <!-- Si estamos viendo archivos: -->
+    <ng-container *ngIf="!showProfiles()">
+      <app-file-list
+        [path]="currentPath()"
+        (folderClick)="onFolderClick($event)"
+        #fileList
+      ></app-file-list>
+      <app-storage-progress [itemCount]="fileCount"></app-storage-progress>
+    </ng-container>
+
+    <!-- Si activamos la vista de perfiles: -->
+    <ng-container *ngIf="showProfiles()">
+      <mat-card class="mat-elevation-z2" style="margin: 1rem">
+        <button class="volver"mat-button (click)="onBackToFiles()">
+          <mat-icon>arrow_back</mat-icon> Volver a archivos
+        </button>
+      </mat-card>
+      <app-profile-list></app-profile-list>
+    </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>

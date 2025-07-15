@@ -71,6 +71,7 @@ export class RegisterComponent {
         confirmPassword: ['', Validators.required],
         plan: ['free', Validators.required],
         acceptedTerms: [false, Validators.requiredTrue],
+        idPerfil:2, //por defecto, el usuario será cliente (idPerfil=2)
       },
       {
         validators: this.passwordsMatchValidator,

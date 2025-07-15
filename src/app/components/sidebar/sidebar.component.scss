@@ -6,9 +6,14 @@ mat-list-item {
 }
 
 mat-list-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(81, 79, 79, 0.15);
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
 }
-
+mat-list-item .mat-icon {
+  color: #ffb6c1 !important; /* el color que quieras */
+}
 .list-icon {
   color: #ffb6c1 !important; /* el color que quieras */
 }

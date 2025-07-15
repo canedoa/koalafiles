@@ -8,9 +8,8 @@ describe('StorageProgressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StorageProgressComponent]
-    })
-    .compileComponents();
+      imports: [StorageProgressComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StorageProgressComponent);
     component = fixture.componentInstance;

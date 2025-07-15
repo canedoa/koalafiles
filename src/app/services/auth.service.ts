@@ -25,8 +25,9 @@ export interface RegisterResponse {
 
 export interface MeResponse {
   userId: number;
-  email:  string;
-  name?:  string;  
+  email: string;
+  name?: string;
+  idPerfil: number;
 }
 @Injectable({
   providedIn: 'root', //providedIn: 'root' indica que este servicio estará disponible globalmente en toda la aplicación
