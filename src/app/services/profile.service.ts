@@ -31,7 +31,7 @@ export interface UserDto {
 
 @Injectable({ providedIn: 'root' })
 export class ProfilesService {
-  private api = `${environment.apiBackendUrl}/profiles`;
+  private api = `${environment.apiBackendUrl}/users`;
 
   constructor(private http: HttpClient) {}
 

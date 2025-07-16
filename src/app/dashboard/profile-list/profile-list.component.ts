@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -27,6 +28,7 @@ import Swal from 'sweetalert2';
     MatInputModule,
     ReactiveFormsModule,
     CommonModule,
+    FormsModule,
   ],
   templateUrl: './profile-list.component.html',
   styleUrl: './profile-list.component.scss',
@@ -60,9 +62,25 @@ export class ProfileListComponent {
   }
 
   onSave(u: UserDto) {
-    this.svc
-      .updateUserProfile(u.id, u.idPerfil)
-      .subscribe(() => this.loadUsers());
+    this.svc.updateUserProfile(u.id, u.idPerfil).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Perfil actualizado',
+          text: 'El perfil del usuario se actualizó correctamente.',
+          confirmButtonColor: '#3085d6',
+        });
+        this.loadUsers();
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err?.error?.message || 'No se pudo actualizar el perfil.',
+          confirmButtonColor: '#d33',
+        });
+      },
+    });
   }
 
   onCreate() {
