@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; //permite realizar peticiones HTTP (GET, POST, etc.)
 import { Observable } from 'rxjs'; //representa una respuesta asincrónica, en angular las peticiones devuelven "Observable"
 import { environment } from '../../environments/environment';
+import { tap } from 'rxjs/operators';
 
 interface LoginResponse {
   token: string;
@@ -47,7 +48,15 @@ export class AuthService {
     email: string;
     password: string;
   }): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials);
+    return this.http
+      .post<LoginResponse>(`${this.apiUrl}/login`, credentials, {
+        withCredentials: true,
+      })
+      .pipe(
+        tap((response) => {
+          this.saveToken(response.token); // <-- Guardar token automáticamente al iniciar sesión
+        })
+      );
   }
 
   //metodo register
