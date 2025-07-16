@@ -1,0 +1,49 @@
+<h2>Gestión de Permisos</h2>
+<table mat-table [dataSource]="users" class="mat-elevation-z1">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+    <td mat-cell *matCellDef="let u">{{ u.firstName }} {{ u.lastName }}</td>
+  </ng-container>
+  <ng-container matColumnDef="createFolder">
+    <th mat-header-cell *matHeaderCellDef>Crear Carpeta</th>
+    <td mat-cell *matCellDef="let u">
+      <mat-checkbox
+        *ngIf="permissions[u.id]"
+        [(ngModel)]="permissions[u.id].createFolder"
+        (change)="
+          onPermissionChange(
+            u.id,
+            'createFolder',
+            permissions[u.id].createFolder
+          )
+        "
+      ></mat-checkbox>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="uploadFile">
+    <th mat-header-cell *matHeaderCellDef>Subir Archivo</th>
+    <td mat-cell *matCellDef="let u">
+      <mat-checkbox
+        *ngIf="permissions[u.id]"
+        [(ngModel)]="permissions[u.id].uploadFile"
+        (change)="
+          onPermissionChange(u.id, 'uploadFile', permissions[u.id].uploadFile)
+        "
+      ></mat-checkbox>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+    <td mat-cell *matCellDef="let u">
+      <button mat-raised-button color="primary" (click)="onSave(u.id)">Guardar</button>
+    </td>
+  </ng-container>
+  <tr
+    mat-header-row
+    *matHeaderRowDef="['name', 'createFolder', 'uploadFile', 'acciones']"
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['name', 'createFolder', 'uploadFile', 'acciones']"
+  ></tr>
+</table>

@@ -14,9 +14,11 @@
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
     <app-sidebar
       [profileId]="profileId() || 0"
+      [userPermissions]="userPermissions"
       (newFolder)="onNewFolder()"
       (uploadFile)="onFileUploadRequested()"
       (showProfiles)="onShowProfiles()"
+      (showPermissions)="onShowPermissions()"
       [collapsed]="collapsed()"
     ></app-sidebar>
   </mat-sidenav>
@@ -46,7 +48,7 @@
     <input #fileInput type="file" hidden (change)="onFileSelected($event)" />
 
     <!-- Si estamos viendo archivos: -->
-    <ng-container *ngIf="!showProfiles()">
+    <ng-container *ngIf="!showProfiles() && !showPermissions()">
       <app-file-list
         [path]="currentPath()"
         (folderClick)="onFolderClick($event)"
@@ -63,6 +65,17 @@
         </button>
       </mat-card>
       <app-profile-list></app-profile-list>
+    </ng-container>
+
+    <!-- Si activamos la vista de permisos: -->
+
+    <ng-container *ngIf="showPermissions()">
+      <mat-card class="mat-elevation-z2" style="margin: 1rem">
+        <button class="volver" mat-button (click)="onBackToFiles()">
+          <mat-icon>arrow_back</mat-icon> Volver a archivos
+        </button>
+      </mat-card>
+      <app-permissions-list></app-permissions-list>
     </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>

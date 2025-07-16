@@ -6,10 +6,10 @@
 </div>
 <section class="dashboard-content">
   <div class="controls">
-    <button mat-raised-button class="CrearCarpeta" (click)="onNewFolderClick()">
+    <button mat-raised-button class="CrearCarpeta" (click)="onNewFolderClick()" *ngIf="userPermissions?.createFolder">
       <mat-icon>create_new_folder</mat-icon> Nueva Carpeta
     </button>
-    <button mat-raised-button class="subirArchivo" (click)="onUploadClick()">
+    <button mat-raised-button class="subirArchivo" (click)="onUploadClick()" *ngIf="userPermissions?.uploadFile">
       <mat-icon>upload</mat-icon> Subir Archivo
     </button>
   </div>
@@ -20,6 +20,14 @@
   >
     <mat-icon matListItemIcon>account_circle</mat-icon>
     <span>Perfiles</span>
+  </mat-list-item>
+  <mat-list-item
+    class="permiso"
+    *ngIf="profileId == 1"
+    (click)="showPermissions.emit()"
+  >
+    <mat-icon matListItemIcon>vpn_key</mat-icon>
+    <span>Permisos</span>
   </mat-list-item>
 </section>
 

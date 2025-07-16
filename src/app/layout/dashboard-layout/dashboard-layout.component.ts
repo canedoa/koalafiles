@@ -10,6 +10,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthService, MeResponse } from '../../services/auth.service';
+import { ProfilesService } from '../../services/profile.service';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -21,7 +22,8 @@ import Swal from 'sweetalert2';
 import { MatCardModule } from '@angular/material/card';
 import { StorageProgressComponent } from '../../components/storage-progress/storage-progress.component';
 import { ProfileListComponent } from '../../dashboard/profile-list/profile-list.component';
-import { MatButtonModule } from '@angular/material/button'; 
+import { MatButtonModule } from '@angular/material/button';
+import { PermissionsListComponent } from '../../dashboard/permissions-list/permissions-list.component';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -38,12 +40,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatCardModule,
     StorageProgressComponent,
+    PermissionsListComponent,
   ],
   templateUrl: './dashboard-layout.component.html',
   styleUrls: ['./dashboard-layout.component.scss'],
 })
 export class DashboardLayoutComponent implements OnInit {
-  profileId = signal<number>(0);  // ← nueva señal
+  profileId = signal<number>(0); // ← nueva señal
   // Devuelve el idPerfil actual
   profileIdValue(): number {
     return this.profileId();
@@ -64,11 +67,14 @@ export class DashboardLayoutComponent implements OnInit {
   totalPercent = 100;
   progressPercent = signal(0);
   showProfiles = signal(false);
+  userPermissions: { createFolder: boolean; uploadFile: boolean } | undefined = undefined;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private dialog: MatDialog,
-    private filesSvc: FilesService
+    private filesSvc: FilesService,
+    private profilesService: ProfilesService
   ) {}
   ngOnInit() {
     // Al iniciar: pedimos /auth/me
@@ -76,6 +82,11 @@ export class DashboardLayoutComponent implements OnInit {
       next: (me: MeResponse) => {
         this.userName.set(me.name ?? me.email);
         this.profileId.set(me.idPerfil);
+        // Obtener permisos del usuario logueado
+        this.profilesService.getUserPermissions(me.userId).subscribe((perms) => {
+          console.log('Permisos recibidos en dashboard:', perms);
+          this.userPermissions = perms;
+        });
       },
       error: (err) => {
         console.error('Error cargando perfil:', err);
@@ -172,10 +183,17 @@ export class DashboardLayoutComponent implements OnInit {
     return this.fileList?.files?.length ?? 0;
   }
 
-
- 
-
   onBackToFiles() {
     this.showProfiles.set(false);
+    this.showPermissions.set(false);
+  }
+
+  showPermissions = signal(false);
+  users: any[] = []; // Aquí deberías cargar los usuarios reales
+
+  onShowPermissions(): void {
+    this.showPermissions.set(true);
+    this.showProfiles.set(false);
+    // Aquí deberías cargar los usuarios si no están cargados
   }
 }

@@ -39,6 +39,14 @@ export class ProfilesService {
     return this.http.get<UserDto[]>(`${this.api}`);
   }
 
+  getUserPermissions(userId: number) {
+    return this.http.get<{ createFolder: boolean; uploadFile: boolean }>(`${this.api}/${userId}/permissions`);
+  }
+
+  updateUserPermissions(userId: number, permissions: { createFolder: boolean; uploadFile: boolean }): Observable<any> {
+    return this.http.patch(`${this.api}/${userId}/permissions`, permissions);
+  }
+
   updateUserProfile(userId: number, idPerfil: number): Observable<any> {
     return this.http.patch(`${this.api}/${userId}`, { idPerfil });
   }

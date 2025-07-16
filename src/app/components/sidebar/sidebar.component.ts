@@ -3,6 +3,8 @@ import {
   Input,
   signal,
   computed,
+  OnChanges, 
+  SimpleChanges
  
   
 } from '@angular/core';
@@ -35,9 +37,11 @@ export type MenuItem = {
 })
 export class SidebarComponent {
   @Input() profileId!: number;
+  @Input() userPermissions?: { createFolder: boolean; uploadFile: boolean };
   @Output() newFolder = new EventEmitter<void>();
   @Output() uploadFile = new EventEmitter<void>();
   @Output() itemSelected = new EventEmitter<void>();
+  @Output() showPermissions = new EventEmitter<void>();
   @Output() showProfiles = new EventEmitter<void>();
    @Output() profileClick = new EventEmitter<void>();
   onNewFolderClick() {
@@ -79,4 +83,10 @@ export class SidebarComponent {
     width: this.sideNavCollapsed() ? '55px' : '141px',
     height: this.sideNavCollapsed() ? '50px' : '101px',
   }));
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['userPermissions']) {
+      console.log('Permisos recibidos en sidebar:', this.userPermissions);
+    }
+  }
 }
