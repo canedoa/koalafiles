@@ -22,7 +22,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class PermissionsListComponent {
   users: UserDto[] = [];
-  permissions: { [userId: number]: { createFolder: boolean; uploadFile: boolean } } = {};
+  permissions: {
+    [userId: number]: { createFolder: boolean; uploadFile: boolean };
+  } = {};
 
   constructor(private profilesService: ProfilesService) {}
 
@@ -32,37 +34,46 @@ export class PermissionsListComponent {
       users.forEach((u) => {
         this.profilesService.getUserPermissions(u.id).subscribe({
           next: (perms) => {
-            this.permissions[u.id] = perms || { createFolder: false, uploadFile: false };
+            this.permissions[u.id] = perms || {
+              createFolder: false,
+              uploadFile: false,
+            };
           },
           error: () => {
             this.permissions[u.id] = { createFolder: false, uploadFile: false };
-          }
+          },
         });
       });
     });
   }
 
-  onPermissionChange(userId: number, type: 'createFolder' | 'uploadFile', value: boolean) {
+  onPermissionChange(
+    userId: number,
+    type: 'createFolder' | 'uploadFile',
+    value: boolean
+  ) {
     this.permissions[userId][type] = value;
   }
 
   onSave(userId: number) {
-    this.profilesService.updateUserPermissions(userId, this.permissions[userId]).subscribe({
-      next: () => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Permisos actualizados',
-          showConfirmButton: false,
-          timer: 1200
-        });
-      },
-      error: () => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al guardar',
-          text: 'No se pudieron actualizar los permisos.'
-        });
-      }
-    });
+    this.profilesService
+      .updateUserPermissions(userId, this.permissions[userId])
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Permisos actualizados',
+            showConfirmButton: false,
+            timer: 1200,
+          });
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al guardar',
+            text: 'No se pudieron actualizar los permisos.',
+          });
+        },
+      });
   }
 }

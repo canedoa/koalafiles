@@ -67,7 +67,8 @@ export class DashboardLayoutComponent implements OnInit {
   totalPercent = 100;
   progressPercent = signal(0);
   showProfiles = signal(false);
-  userPermissions: { createFolder: boolean; uploadFile: boolean } | undefined = undefined;
+  userPermissions: { createFolder: boolean; uploadFile: boolean } | undefined =
+    undefined;
 
   constructor(
     private authService: AuthService,
@@ -83,10 +84,12 @@ export class DashboardLayoutComponent implements OnInit {
         this.userName.set(me.name ?? me.email);
         this.profileId.set(me.idPerfil);
         // Obtener permisos del usuario logueado
-        this.profilesService.getUserPermissions(me.userId).subscribe((perms) => {
-          console.log('Permisos recibidos en dashboard:', perms);
-          this.userPermissions = perms;
-        });
+        this.profilesService
+          .getUserPermissions(me.userId)
+          .subscribe((perms) => {
+            console.log('Permisos recibidos en dashboard:', perms);
+            this.userPermissions = perms;
+          });
       },
       error: (err) => {
         console.error('Error cargando perfil:', err);

@@ -3,10 +3,8 @@ import {
   Input,
   signal,
   computed,
-  OnChanges, 
-  SimpleChanges
- 
-  
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
@@ -43,7 +41,7 @@ export class SidebarComponent {
   @Output() itemSelected = new EventEmitter<void>();
   @Output() showPermissions = new EventEmitter<void>();
   @Output() showProfiles = new EventEmitter<void>();
-   @Output() profileClick = new EventEmitter<void>();
+  @Output() profileClick = new EventEmitter<void>();
   onNewFolderClick() {
     this.newFolder.emit();
   }
