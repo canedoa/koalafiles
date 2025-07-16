@@ -18,9 +18,9 @@ mat-label {
 .logo {
   position: absolute;
   top: 19%;
-  right: 57%;
-  width: 78px;
-  height: 60px;
+  right: 59%;
+  width: 76px;
+  height: 54px;
   z-index: 20;
 }
 
@@ -130,14 +130,24 @@ mat-label {
   width: 254px;
   display: inline-block; //para que pueda rotar bien
   animation: sacudida-rotatoria 3.5s linear infinite;
-  transform-origin: center; 
+  transform-origin: center;
 }
 @keyframes sacudida-rotatoria {
-  0%   { transform: rotate(0deg); }
-  25%  { transform: rotate(-10deg); }
-  50%  { transform: rotate(10deg); }
-  75%  { transform: rotate(-10deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes float {

@@ -18,7 +18,7 @@ html {
 
 .logo {
   position: absolute;
-  top: 4%;
+  top: 2%;
   left: 41%;
   transform: translateX(-50%);
   width: 230px;
@@ -45,9 +45,12 @@ mat-card.login-card {
   background: #fff;
 }
 
+.inicio {
+  top: 4px;
+}
 h2,
 mat-label {
-  margin-bottom: 25px;
+  margin-bottom: 8px;
   color: #6e6e6e;
 }
 
@@ -74,7 +77,7 @@ mat-label {
 }
 
 .links a {
-  color: #69d2ff; 
+  color: #69d2ff;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;

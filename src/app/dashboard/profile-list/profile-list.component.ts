@@ -53,7 +53,10 @@ export class ProfileListComponent {
   }
 
   loadUsers() {
-    this.svc.getUsers().subscribe((u) => (this.users = u));
+    this.svc.getUsers().subscribe((u) => {
+      console.log('Usuarios recibidos:', u);
+      this.users = u;
+    });
   }
 
   onSave(u: UserDto) {
