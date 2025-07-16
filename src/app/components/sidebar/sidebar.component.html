@@ -13,7 +13,11 @@
       <mat-icon>upload</mat-icon> Subir Archivo
     </button>
   </div>
-  <mat-list-item  class="perfil "*ngIf="profileId === 1" (click)="showProfiles.emit()">
+  <mat-list-item
+    class="perfil"
+    *ngIf="profileId == 1"
+    (click)="showProfiles.emit()"
+  >
     <mat-icon matListItemIcon>account_circle</mat-icon>
     <span>Perfiles</span>
   </mat-list-item>

@@ -13,7 +13,7 @@
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
     <app-sidebar
-      [profileId]="profileId()"
+      [profileId]="profileId() || 0"
       (newFolder)="onNewFolder()"
       (uploadFile)="onFileUploadRequested()"
       (showProfiles)="onShowProfiles()"
@@ -58,7 +58,7 @@
     <!-- Si activamos la vista de perfiles: -->
     <ng-container *ngIf="showProfiles()">
       <mat-card class="mat-elevation-z2" style="margin: 1rem">
-        <button class="volver"mat-button (click)="onBackToFiles()">
+        <button class="volver" mat-button (click)="onBackToFiles()">
           <mat-icon>arrow_back</mat-icon> Volver a archivos
         </button>
       </mat-card>

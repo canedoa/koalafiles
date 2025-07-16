@@ -44,6 +44,15 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class DashboardLayoutComponent implements OnInit {
   profileId = signal<number>(0);  // ← nueva señal
+  // Devuelve el idPerfil actual
+  profileIdValue(): number {
+    return this.profileId();
+  }
+
+  // Acción para mostrar la gestión de perfiles
+  onShowProfiles(): void {
+    this.showProfiles.set(true);
+  }
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild(FileListComponent) fileList!: FileListComponent;
 
@@ -164,9 +173,7 @@ export class DashboardLayoutComponent implements OnInit {
   }
 
 
-  onShowProfiles() {
-    this.showProfiles.set(true);
-  }
+ 
 
   onBackToFiles() {
     this.showProfiles.set(false);

@@ -72,6 +72,7 @@ export class ProfileListComponent {
       plan,
       accepted_terms,
       password,
+      idPerfil,
     } = this.newUserForm.value;
     const dto = {
       firstName,
@@ -81,6 +82,7 @@ export class ProfileListComponent {
       plan,
       accepted_terms,
       password,
+      idPerfil,
     };
     this.svc.createUser(dto).subscribe({
       next: () => {
