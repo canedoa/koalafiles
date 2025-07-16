@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBackendUrl: 'http://localhost:3000',
+  apiBackendUrl: 'https://koalafiles-backend.up.railway.app',
 };
