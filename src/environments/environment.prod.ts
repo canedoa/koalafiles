@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBackendUrl: 'https://koalafiles-backend-ftqb.vercel.app',
+  apiBackendUrl: 'https://koalafiles-backend.up.railway.app',
 };
