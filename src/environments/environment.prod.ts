@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBackendUrl: 'koalafiles-backend-production.up.railway.app',
+  apiBackendUrl: 'https://koalafiles-backend-production.up.railway.app',
 };
