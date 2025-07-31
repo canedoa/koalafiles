@@ -64,6 +64,7 @@ export class DashboardLayoutComponent implements OnInit {
   currentPath = signal<string[]>([]);
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
   usedPercent = signal(0);
+  isDragOver = signal(false);
   totalPercent = 100;
   progressPercent = signal(0);
   showProfiles = signal(false);
@@ -157,15 +158,91 @@ export class DashboardLayoutComponent implements OnInit {
     if (!input.files?.length) {
       return;
     }
-    const file = input.files[0];
-    this.filesSvc.upload(file, this.currentPath()).subscribe({
-      next: () => {
-        this.refreshFiles();
-        // volver a resetear el input para poder subir el mismo archivo otra vez
-        input.value = '';
-      },
-      error: (err) => console.error('Error subiendo archivo', err),
+
+    // Procesar múltiples archivos (compatible con un solo archivo también)
+    this.processFiles(input.files);
+
+    // volver a resetear el input para poder subir el mismo archivo otra vez
+    input.value = '';
+  }
+
+  // Procesar múltiples archivos (usado tanto por drag&drop como por el botón)
+  private processFiles(files: FileList) {
+    const fileArray = Array.from(files);
+
+    if (fileArray.length === 0) return;
+
+    // Si es un solo archivo, usa la lógica original
+    if (fileArray.length === 1) {
+      const file = fileArray[0];
+      this.filesSvc.upload(file, this.currentPath()).subscribe({
+        next: () => {
+          this.refreshFiles();
+        },
+        error: (err) => console.error('Error subiendo archivo', err),
+      });
+      return;
+    }
+
+    // Si son múltiples archivos, mostrar progreso
+    Swal.fire({
+      title: 'Subiendo archivos...',
+      text: `Subiendo ${fileArray.length} archivo(s)`,
+      icon: 'info',
+      showConfirmButton: false,
+      timer: 2000,
     });
+
+    fileArray.forEach((file, index) => {
+      this.filesSvc.upload(file, this.currentPath()).subscribe({
+        next: () => {
+          if (index === fileArray.length - 1) {
+            this.refreshFiles();
+            Swal.fire({
+              title: '¡Listo!',
+              text: `${fileArray.length} archivo(s) subido(s) correctamente`,
+              icon: 'success',
+              timer: 2000,
+              showConfirmButton: false,
+            });
+          }
+        },
+        error: (err) => {
+          console.error('Error subiendo archivo', file.name, err);
+        },
+      });
+    });
+  }
+
+  // MÉTODOS PARA DRAG & DROP
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  onDragEnter(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver.set(true);
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.currentTarget === event.target) {
+      this.isDragOver.set(false);
+    }
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver.set(false);
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.processFiles(files);
+    }
   }
 
   logout(): void {

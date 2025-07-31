@@ -27,6 +27,7 @@ export interface UserDto {
   plan: string;
   accepted_terms: boolean;
   idPerfil: number;
+  iActivo: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -40,15 +41,24 @@ export class ProfilesService {
   }
 
   getUserPermissions(userId: number) {
-    return this.http.get<{ createFolder: boolean; uploadFile: boolean }>(`${this.api}/${userId}/permissions`);
+    return this.http.get<{ createFolder: boolean; uploadFile: boolean }>(
+      `${this.api}/${userId}/permissions`
+    );
   }
 
-  updateUserPermissions(userId: number, permissions: { createFolder: boolean; uploadFile: boolean }): Observable<any> {
+  updateUserPermissions(
+    userId: number,
+    permissions: { createFolder: boolean; uploadFile: boolean }
+  ): Observable<any> {
     return this.http.patch(`${this.api}/${userId}/permissions`, permissions);
   }
 
-  updateUserProfile(userId: number, idPerfil: number): Observable<any> {
-    return this.http.patch(`${this.api}/${userId}`, { idPerfil });
+  updateUserProfile(
+    userId: number,
+    idPerfil: number,
+    iActivo: number
+  ): Observable<any> {
+    return this.http.patch(`${this.api}/${userId}`, { idPerfil, iActivo });
   }
 
   createUser(data: CreateUserDto): Observable<any> {

@@ -19,6 +19,264 @@ mat-sidenav {
   padding: 24px;
 }
 
+.drop-zone {
+  border: 3px dashed #ffb6c1;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  margin: 1rem;
+  text-align: center;
+  background: linear-gradient(135deg, #fff0f5 0%, #ffeef8 50%, #fff5ee 100%);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  cursor: pointer;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(255, 182, 193, 0.1);
+
+  &::before {
+    content: "🌸✨🌸✨🌸";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ffb6c1, #ff69b4, #ffc0cb);
+    transition: left 0.6s ease;
+  }
+
+  &:hover {
+    border-color: #ff69b4;
+    background: linear-gradient(135deg, #fff0f8 0%, #ffebf0 50%, #fff0f5 100%);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2);
+
+    &::before {
+      opacity: 0.7;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    &::after {
+      left: 100%;
+    }
+
+    .drop-icon {
+      transform: scale(1.1) rotate(-5deg);
+      color: #ff69b4;
+      animation: kawaii-bounce 0.8s ease infinite alternate;
+    }
+
+    h3 {
+      color: #ff1493;
+    }
+  }
+
+  &.drag-over {
+    border-color: #ff1493;
+    border-style: solid;
+    background: linear-gradient(135deg, #fff0f8 0%, #ffe4e6 50%, #ffebf0 100%);
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 20px 50px rgba(255, 20, 147, 0.3);
+
+    &::before {
+      content: "🎀💕🌟💕🎀";
+      opacity: 1;
+      animation: kawaii-sparkle 1s ease infinite;
+    }
+
+    .drop-icon {
+      transform: scale(1.3) rotate(10deg);
+      color: #ff1493;
+      animation: kawaii-wiggle 0.5s ease infinite;
+    }
+
+    .drop-content h3 {
+      color: #ff1493;
+      font-weight: 600;
+      animation: kawaii-pulse 1s ease infinite;
+    }
+
+    .drop-hint,
+    .drop-hint2 {
+      color: #ff69b4;
+      animation: kawaii-float 2s ease infinite alternate;
+    }
+  }
+}
+
+.drop-content {
+  pointer-events: none;
+  z-index: 1;
+  position: relative;
+
+  h3 {
+    margin: 1rem 0 0.5rem 0;
+    color: #d63384;
+    font-weight: 500;
+    font-size: 1.3rem;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(255, 182, 193, 0.3);
+  }
+}
+
+.drop-icon {
+  font-size: 72px;
+  color: #ffb6c1;
+  margin-bottom: 1rem;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(255, 182, 193, 0.3));
+}
+
+.drop-hint {
+  color: #8e44ad;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  font-weight: 500;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  text-shadow: 0 1px 2px rgba(142, 68, 173, 0.2);
+}
+
+.drop-hint2 {
+  color: #ff69b4;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-style: italic;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  opacity: 0.8;
+}
+
+// Animaciones kawaii
+@keyframes kawaii-bounce {
+  0% {
+    transform: scale(1.1) rotate(-5deg) translateY(0px);
+  }
+  100% {
+    transform: scale(1.1) rotate(-5deg) translateY(-8px);
+  }
+}
+
+@keyframes kawaii-wiggle {
+  0% {
+    transform: scale(1.3) rotate(8deg);
+  }
+  25% {
+    transform: scale(1.3) rotate(12deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(8deg);
+  }
+  75% {
+    transform: scale(1.3) rotate(12deg);
+  }
+  100% {
+    transform: scale(1.3) rotate(8deg);
+  }
+}
+
+@keyframes kawaii-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes kawaii-sparkle {
+  0% {
+    opacity: 0.7;
+    transform: translateX(-50%) translateY(0px) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-3px) scale(1.1);
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateX(-50%) translateY(0px) scale(1);
+  }
+}
+
+@keyframes kawaii-float {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+// Efectos de partículas kawaii (opcional)
+.drop-zone:hover::before {
+  animation: kawaii-sparkle 1.5s ease infinite;
+}
+
+// Responsive kawaii
+@media (max-width: 768px) {
+  .drop-zone {
+    margin: 0.5rem;
+    padding: 2rem 1rem;
+    min-height: 150px;
+    border-radius: 16px;
+
+    .drop-icon {
+      font-size: 56px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    .drop-hint {
+      font-size: 1rem;
+    }
+
+    &::before {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Tema oscuro kawaii (opcional)
+@media (prefers-color-scheme: dark) {
+  .drop-zone {
+    background: linear-gradient(135deg, #2a1a2e 0%, #3a2a3e 50%, #4a2a4e 100%);
+    border-color: #ff69b4;
+
+    h3 {
+      color: #ffc0cb;
+    }
+
+    .drop-hint {
+      color: #dda0dd;
+    }
+
+    .drop-hint2 {
+      color: #ffb6c1;
+    }
+  }
+}
+
 mat-sidenav-container {
   height: 100vh;
 }

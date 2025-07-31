@@ -61,13 +61,14 @@ export class ProfileListComponent {
     });
   }
 
+
   onSave(u: UserDto) {
-    this.svc.updateUserProfile(u.id, u.idPerfil).subscribe({
+    this.svc.updateUserProfile(u.id, u.idPerfil, u.iActivo).subscribe({
       next: () => {
         Swal.fire({
           icon: 'success',
-          title: 'Perfil actualizado',
-          text: 'El perfil del usuario se actualizó correctamente.',
+          title: 'Usuario actualizado',
+          text: 'El perfil y estado del usuario se actualizó correctamente.',
           confirmButtonColor: '#3085d6',
         });
         this.loadUsers();
@@ -76,12 +77,13 @@ export class ProfileListComponent {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: err?.error?.message || 'No se pudo actualizar el perfil.',
+          text: err?.error?.message || 'No se pudo actualizar el usuario.',
           confirmButtonColor: '#d33',
         });
       },
     });
   }
+
 
   onCreate() {
     if (this.newUserForm.invalid) return;
@@ -131,4 +133,20 @@ export class ProfileListComponent {
       },
     });
   }
+
+ // ...existing code...
+  onToggleStatus(user: UserDto) {
+    // Cambiar el estado localmente
+    user.iActivo = user.iActivo === 1 ? 0 : 1;
+    
+    const statusText = user.iActivo === 1 ? 'activado' : 'desactivado';
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'Estado actualizado',
+      text: `El usuario ha sido ${statusText}. Presiona "Guardar" para aplicar los cambios.`,
+      confirmButtonColor: '#3085d6',
+    });
+  }
+
 }
